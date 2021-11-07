@@ -14,9 +14,14 @@ import java.util.regex.Pattern;
  * bogus data to prevent potential crashes or unhandled exceptions.<p>
  * 
  * <i>This library is provided to everyone for use, modification, and
- * redistribution under the GNU AGPL license version 3.0 or later. A
+ * redistribution under the GNU GPL license version 3.0 or later. A
  * LICENSE.txt file should be provided with this library, however it is
  * also available online at {@link https://www.gnu.org/licenses/agpl-3.0.en.html}.</i><p>
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.<p>
  * 
  * <i>For more info, please visit {@link https://whits.io/licensing}.</i>
  * @author Whit Huntley
