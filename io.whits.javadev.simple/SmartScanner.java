@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  * <i>For more info, please visit {@link https://whits.io/licensing}.</i>
  * @author Whit Huntley
  * @version 1.2.0
- * @since 2021-10-26
+ * @since 2021-11-07
 */
 public class SmartScanner {
     private Scanner input;
@@ -324,11 +324,20 @@ public class SmartScanner {
             // clean up 
             response = response.trim();
             response = response.toLowerCase();
+            // This is like this for java 11 compatibility.
             switch(response) {
-                case "yes": value = true;
+                case "yes": 
+                case "y":
+                case "1":
+                case "true":
+                case "t": value = true;
                     validResponse = true;
                     break;
-                case "no": value = false;
+                case "no":
+                case "n":
+                case "0":
+                case "false":
+                case "f": value = false;
                     validResponse = true;
                     break;
                 default: System.out.printf("Sorry, %s is not a valid response. Try again.\n\n", response);
@@ -352,12 +361,12 @@ public class SmartScanner {
         String response = this.smartNextStringSanitized(prompt);
         // This is like this for java 11 compatibility.
         switch(response) {
-            case "yes": 
+            case "yes":
             case "y":
             case "1":
             case "true":
             case "t": return true;
-            case "no": 
+            case "no":
             case "n":
             case "0":
             case "false":
