@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * 
  * <i>For more info, please visit {@link https://whits.io/licensing}.</i>
  * @author Whit Huntley
- * @version 1.1.3
+ * @version 1.2.0
  * @since 2021-10-26
 */
 public class SmartScanner {
@@ -58,9 +58,23 @@ public class SmartScanner {
         input = s;
     }
 
+    /** <strong>Get user input</strong>
+     * <code>nextLine</code> is just a call to the default scanner nextline
+     * with no changes.
+     * @param prompt - The prompt to be provided to the user
+     * @return The now cleaner input
+     */
+    public String nextLine(String prompt) {
+        System.out.println(prompt);
+        System.out.print("> ");
+        String response = input.nextLine();
+        response = response.toLowerCase();
+        response = response.trim();
+        return response;
+    }
 
     /** <strong>Get user input and sanitize it</strong>
-     * <code>smartForceNextInt</code> will prompt the user for input via STDIN and then clean
+     * <code>smartNextStringSanitized</code> will prompt the user for input via STDIN and then clean
      * the resulting string so that it is more easily parsed by more simple code.
      * @param prompt - The prompt to be provided to the user
      * @return The now cleaner input
@@ -100,6 +114,16 @@ public class SmartScanner {
         return response;
     }
 
+    /** <strong>Get the next valid integer</strong><p>
+     * <code>nextInt</code> will continually loop until the user provides a 
+     * valid integer value. Do not use this method if it can be avoided, it
+     * is simply here for compatibility with the default scanner nextInt.
+     * @return The user's provided value as an integer.
+     */
+    public int nextInt() {
+        System.err.println("Bad programmer didn't update methods (nextInt rather than smartForceNextInt used).");
+        return smartForceNextInt("");
+    }
 
     /** <strong>Safely parse user input and cast as an int</strong><p>
      * <code>smartForceNextInt</code> will prompt the user for input via STDIN and attempt to
@@ -183,6 +207,18 @@ public class SmartScanner {
             }
         }
         return value;
+    }
+
+
+    /** <strong>Get the next valid double</strong><p>
+     * <code>nextInt</code> will continually loop until the user provides a 
+     * valid double value. Do not use this method if it can be avoided, it
+     * is simply here for compatibility with the default scanner nextInt.
+     * @return The user's provided value as an integer.
+     */
+    public int nextDouble() {
+        System.err.println("Bad programmer didn't update methods (nextInt rather than smartForceNextDouble used).");
+        return smartForceNextInt("");
     }
 
 
@@ -289,10 +325,10 @@ public class SmartScanner {
             response = response.trim();
             response = response.toLowerCase();
             switch(response) {
-                case "yes", "y", "true", "t", "1": value = true;
+                case "yes": value = true;
                     validResponse = true;
                     break;
-                case "n", "no", "f", "false", "0": value = false;
+                case "no": value = false;
                     validResponse = true;
                     break;
                 default: System.out.printf("Sorry, %s is not a valid response. Try again.\n\n", response);
@@ -313,15 +349,19 @@ public class SmartScanner {
      * @return The user's provided value as a boolean.
      */
     public boolean smartForceNextBoolean(String prompt, boolean defaultValue) {
-        System.out.println(prompt);
-        System.out.print("> ");
-        String response = input.nextLine();
-        // clean up 
-        response = response.trim();
-        response = response.toLowerCase();
+        String response = this.smartNextStringSanitized(prompt);
+        // This is like this for java 11 compatibility.
         switch(response) {
-            case "yes", "y", "true", "t", "1": return true;
-            case "n", "no", "f", "false", "0": return false;
+            case "yes": 
+            case "y":
+            case "1":
+            case "true":
+            case "t": return true;
+            case "no": 
+            case "n":
+            case "0":
+            case "false":
+            case "f": return false;
             default: System.out.printf("Sorry, %s is not a valid response. Assuming default value %b.\n\n", 
                 response,
                 defaultValue);
