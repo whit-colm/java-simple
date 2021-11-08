@@ -112,7 +112,7 @@ public class SmartScanner {
      * @param e - the regex (from java's <code>util.regex.Pattern</code> class) to validate against
      * @return the user's validated input
      */
-    public String smartForceNextStringMatching(String prompt, String e) {
+    public String smartForceNextStringMatching(String prompt, Pattern e) {
         String response = "";
         while (true) {
             response = this.nextLine(prompt);
