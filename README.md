@@ -11,7 +11,7 @@ If you're using this with any UNCC assignments, when submitting projects or labs
 > It is available online at https://github.com/whit-colm/java-simple
 > ```
 
-This both is required by the license and also the school. [learn more about licensing](https://whits.io/licensing)
+This both is required by the license and also the school. [learn more about licensing](https://whits.io/licensing) or [learn more about the GNU GPL v3.0](https://choosealicense.com/licenses/gpl-3.0/).
 
 # Compiling
 

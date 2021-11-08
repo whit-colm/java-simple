@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * <i>This library is provided to everyone for use, modification, and
  * redistribution under the GNU GPL license version 3.0 or later. A
  * LICENSE.txt file should be provided with this library, however it is
- * also available online at {@link https://www.gnu.org/licenses/agpl-3.0.en.html}.</i><p>
+ * also available online at {@link https://www.gnu.org/licenses/gpl-3.0.en.html}.</i><p>
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -25,8 +25,8 @@ import java.util.regex.Pattern;
  * 
  * <i>For more info, please visit {@link https://whits.io/licensing}.</i>
  * @author Whit Huntley
- * @version 1.2.0
- * @since 2021-11-07
+ * @version 1.2.1
+ * @since 2021-11-08
 */
 public class SmartScanner {
     private Scanner input;
@@ -65,7 +65,7 @@ public class SmartScanner {
 
     /** <strong>Get user input</strong>
      * <code>nextLine</code> is just a call to the default scanner nextline
-     * with no changes.
+     * with the option to pass a prompt, which will be printed to STDOUT
      * @param prompt - The prompt to be provided to the user
      * @return The now cleaner input
      */
@@ -73,8 +73,19 @@ public class SmartScanner {
         System.out.println(prompt);
         System.out.print("> ");
         String response = input.nextLine();
-        response = response.toLowerCase();
-        response = response.trim();
+        return response;
+    }
+
+    /** <strong>Get user input</strong>
+     * <code>nextLine</code> is just a call to the default scanner nextline.
+     * The only change made is providing a cleaner area for the user to enter
+     * input.
+     * @return The now cleaner input
+     */
+    public String nextLine() {
+        System.err.println("Bad programmer didn't update methods (nextLine() rather than nextLine(String) used).");
+        System.out.print("> ");
+        String response = input.nextLine();
         return response;
     }
 
@@ -98,25 +109,19 @@ public class SmartScanner {
      * Scanner and attempt to make it match a Java regex pattern. If the user fails to enter a
      * matching string, they will be prompted again.
      * @param prompt - the prompt to be shown to the user
-     * @param e - the expression (from java's <code>util.regex.Pattern</code> class) to validate against
+     * @param e - the regex (from java's <code>util.regex.Pattern</code> class) to validate against
      * @return the user's validated input
      */
-    public String smartForceNextStringMatching(String prompt, Pattern e) {
+    public String smartForceNextStringMatching(String prompt, String e) {
         String response = "";
-        boolean validResponse = false;
-        while (!validResponse) {
-            System.out.println(prompt);
-            System.out.print("> ");
-            response = input.nextLine();
-            Matcher m = e.matcher(prompt);
+        while (true) {
+            response = this.nextLine(prompt);
+            Matcher m = e.matcher(response);
             if (m.find()) {
-                validResponse = true;
-            } else {
-                System.out.println("That was not a valid response. Try again.");
-                validResponse = false;
+                return response;
             }
+            System.out.println("That was not a valid response. Please try again.");
         }
-        return response;
     }
 
     /** <strong>Get the next valid integer</strong><p>
